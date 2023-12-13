@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "./static/css/main.1df78455.css",
+    "main.js": "./static/js/main.d3581e99.js",
+    "static/js/787.350f8e6c.chunk.js": "./static/js/787.350f8e6c.chunk.js",
+    "static/media/faster-logo.svg": "./static/media/faster-logo.2bfc4274134c0a17747001ffa3bb9de2.svg",
+    "index.html": "./index.html",
+    "main.1df78455.css.map": "./static/css/main.1df78455.css.map",
+    "main.d3581e99.js.map": "./static/js/main.d3581e99.js.map",
+    "787.350f8e6c.chunk.js.map": "./static/js/787.350f8e6c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1df78455.css",
+    "static/js/main.d3581e99.js"
+  ]
+}
