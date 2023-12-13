@@ -62,16 +62,11 @@ const App = () => {
       <StyledContainer>
         <StyledSidebar>
           <StyledLogo>
-            <img
-              width="100%"
-              height="auto"
-              src={fasterLogo}
-              alt="Faster"
-            />
+            <img src={fasterLogo} alt="Faster" />
             <p>Desafio Fitness</p>
           </StyledLogo>
         </StyledSidebar>
-        {ranking.length && (
+        {ranking.length ? (
           <StyledRanking>
             <StyledTitle>Ranking</StyledTitle>
             <StyledList>
@@ -85,8 +80,7 @@ const App = () => {
               })}
             </StyledList>
           </StyledRanking>
-        )}
-        {!ranking.length && (
+        ) : (
           <StyledEmptyState>
             <p>No people yet.</p>
           </StyledEmptyState>
