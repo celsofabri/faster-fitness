@@ -2,10 +2,12 @@
   "name": "faster-fitness",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "gh-pages": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -14,15 +16,49 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "format": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
+    "test:dev": "react-scripts test",
+    "test:lint": "yarn eslint . --ignore-path .gitignore --ext .js",
+    "predeploy": "yarn build --prefix-paths",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:jsx-a11y/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "jsx-a11y",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error"
+      ]
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json,css,cssmd}": [
+      "npm run format"
     ]
+  },
+  "prettier": {
+    "printWidth": 70,
+    "useTabs": false,
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "none"
   },
   "browserslist": {
     "production": [
@@ -35,5 +71,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "typeface-open-sans": "^1.1.13"
   }
 }

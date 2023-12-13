@@ -15,8 +15,7 @@ import {
 import fasterLogo from './assets/images/faster-logo.svg';
 
 const App = () => {
-
-  const [people, setPeople] = useState([])
+  const [people, setPeople] = useState([]);
   const query = `
     {
       rankingCollection{
@@ -32,14 +31,18 @@ const App = () => {
 
   useEffect(() => {
     window
-      .fetch(`https://graphql.contentful.com/content/v1/spaces/mgq7l530tefn/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer cb4TdCZR4oyeLi4qQvyP3F3H_WnSd1rKsQkCNUBsyQE',
-        },
-        body: JSON.stringify({ query }),
-      })
+      .fetch(
+        `https://graphql.contentful.com/content/v1/spaces/mgq7l530tefn/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization:
+              'Bearer cb4TdCZR4oyeLi4qQvyP3F3H_WnSd1rKsQkCNUBsyQE'
+          },
+          body: JSON.stringify({ query })
+        }
+      )
       .then((response) => response.json())
       .then(({ data, errors }) => {
         if (errors) {
@@ -48,8 +51,7 @@ const App = () => {
 
         setPeople(data.rankingCollection.items);
       });
-    }, 
-  [query]);
+  }, [query]);
 
   ranking.sort((a, b) => {
     return b.points - a.points;
@@ -60,35 +62,38 @@ const App = () => {
       <StyledContainer>
         <StyledSidebar>
           <StyledLogo>
-            <img width="100%" height="auto" src={fasterLogo} alt="Faster" />
+            <img
+              width="100%"
+              height="auto"
+              src={fasterLogo}
+              alt="Faster"
+            />
             <p>Desafio Fitness</p>
           </StyledLogo>
         </StyledSidebar>
-        {ranking.length &&
-          (
-            <StyledRanking>
-              <StyledTitle>Ranking</StyledTitle>
-              <StyledList>
-                {ranking.map((person, index) => {
-                  return (
-                    <StyledItem key={index}>
-                      <StyledPerson>{person.name}</StyledPerson>
-                      <StyledPoints>{person.points}</StyledPoints>
-                    </StyledItem> 
-                  )
-                })}
-              </StyledList>
-            </StyledRanking>
-          )
-        }
-        {!ranking.length &&
+        {ranking.length && (
+          <StyledRanking>
+            <StyledTitle>Ranking</StyledTitle>
+            <StyledList>
+              {ranking.map((person, index) => {
+                return (
+                  <StyledItem key={index}>
+                    <StyledPerson>{person.name}</StyledPerson>
+                    <StyledPoints>{person.points}</StyledPoints>
+                  </StyledItem>
+                );
+              })}
+            </StyledList>
+          </StyledRanking>
+        )}
+        {!ranking.length && (
           <StyledEmptyState>
             <p>No people yet.</p>
           </StyledEmptyState>
-        }
+        )}
       </StyledContainer>
     </React.Fragment>
   );
-}
+};
 
 export default App;
