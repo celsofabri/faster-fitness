@@ -43,7 +43,7 @@ export const StyledLogo = styled.div`
 export const StyledRanking = styled.section`
   width: 70%;
   height: 100vh;
-  padding: 100px 32px;
+  padding: 16px 32px;
   overflow: auto;
 
   @media screen and (max-width: 768px) {
