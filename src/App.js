@@ -7,6 +7,7 @@ import {
   StyledTitle,
   StyledList,
   StyledItem,
+  StyledPosition,
   StyledPerson,
   StyledPoints,
   StyledEmptyState
@@ -73,6 +74,7 @@ const App = () => {
               {ranking.map((person, index) => {
                 return (
                   <StyledItem key={index}>
+                    <StyledPosition>{index + 1}</StyledPosition>
                     <StyledPerson>{person.name}</StyledPerson>
                     <StyledPoints>{person.points}</StyledPoints>
                   </StyledItem>

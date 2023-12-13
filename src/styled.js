@@ -44,6 +44,7 @@ export const StyledRanking = styled.section`
   width: 70%;
   height: 100vh;
   padding: 100px 32px;
+  overflow: auto;
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -69,10 +70,9 @@ export const StyledTitle = styled.h3`
   font-size: 32px;
 `;
 
-export const StyledList = styled.ul`
+export const StyledList = styled.ol`
   margin: 0;
   padding: 0;
-  list-style-type: none;
   border: 1px solid #e8e8e8;
 `;
 
@@ -87,8 +87,12 @@ export const StyledItem = styled.li`
   }
 `;
 
+export const StyledPosition = styled.div`
+  width: 10%;
+`;
+
 export const StyledPerson = styled.div`
-  width: 70%;
+  width: 60%;
 `;
 
 export const StyledPoints = styled.div`
