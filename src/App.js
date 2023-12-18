@@ -7,28 +7,40 @@ import {
   StyledTitle,
   StyledList,
   StyledItem,
+  StyledRow,
   StyledPosition,
   StyledPerson,
   StyledPoints,
-  StyledEmptyState
+  StyledAction,
+  StyledEmptyState,
+  StyledDetails,
+  StyledClose,
+  StyledLabel
 } from './styled.js';
-// import people from './mock.js';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import fasterLogo from './assets/images/faster-logo.svg';
 
 const App = () => {
   const [people, setPeople] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState(null);
   const query = `
     {
       rankingCollection{
         items {
           name
           points
+          details
+          disqualified
         }
       }
     }
   `;
 
   const ranking = people;
+
+  console.log(ranking);
 
   useEffect(() => {
     window
@@ -58,6 +70,8 @@ const App = () => {
     return b.points - a.points;
   });
 
+  console.log('modalData', modalData);
+
   return (
     <React.Fragment>
       <StyledContainer>
@@ -72,15 +86,52 @@ const App = () => {
             <StyledTitle>Ranking</StyledTitle>
             <StyledList>
               {ranking.map((person, index) => {
+                console.log('person', person.details);
+
                 return (
-                  <StyledItem key={index}>
-                    <StyledPosition>{index + 1}</StyledPosition>
-                    <StyledPerson>{person.name}</StyledPerson>
-                    <StyledPoints>{person.points}</StyledPoints>
+                  <StyledItem
+                    key={index}
+                    disqualified={person?.disqualified}
+                  >
+                    <StyledRow>
+                      <StyledPosition>{index + 1}</StyledPosition>
+                      <StyledPerson>
+                        <StyledLabel>Nome:</StyledLabel> {person.name}
+                      </StyledPerson>
+                      <StyledPoints>
+                        <StyledLabel>Pontos:</StyledLabel>{' '}
+                        {person.points}
+                      </StyledPoints>
+                      {person?.details && (
+                        <StyledAction
+                          onClick={() => {
+                            setModalData(person);
+                            setModalOpen((modalOpen) => !modalOpen);
+                          }}
+                          disqualified={person?.disqualified}
+                        >
+                          <button>Ver detalhes</button>
+                        </StyledAction>
+                      )}
+                    </StyledRow>
                   </StyledItem>
                 );
               })}
             </StyledList>
+            <StyledDetails isVisible={modalOpen}>
+              <StyledClose
+                type="button"
+                onClick={() => {
+                  setModalOpen(false);
+                }}
+              >
+                Fechar
+              </StyledClose>
+              <StyledTitle>{modalData?.name}</StyledTitle>
+              <Markdown remarkPlugins={[remarkGfm]}>
+                {modalData?.details}
+              </Markdown>
+            </StyledDetails>
           </StyledRanking>
         ) : (
           <StyledEmptyState>
